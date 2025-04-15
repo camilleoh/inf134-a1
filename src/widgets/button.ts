@@ -15,6 +15,7 @@ class Button extends Widget{
     private defaultFontSize: number = 18;
     private defaultWidth: number = 80;
     private defaultHeight: number = 30;
+    private _onClickCallback?: () => void;
 
     constructor(parent:Window){
         super(parent);
@@ -81,28 +82,52 @@ class Button extends Widget{
 
         if (this.previousState instanceof PressedWidgetState)
             this.raise(new EventArgs(this));
+            if (this._onClickCallback) {
+                this._onClickCallback();
+            }
+    }
+
+    get label(): string {
+        return this._input;
+    }
+
+    set label(value: string) {
+        this._input = value;
+        this.update();
+    }
+
+    get size(): { width: number, height: number } {
+        return { width: this.width, height: this.height };
+    }
+    
+    set size(dimensions: { width: number, height: number }) {
+        this.width = dimensions.width;
+        this.height = dimensions.height;
+        this.update();
     }
 
     //TODO: implement the onClick event using a callback passed as a parameter
-    onClick(/*TODO: add callback parameter*/):void{}
+    onClick(callback: () => void): void {
+        this._onClickCallback = callback;
+    }
 
     
     //TODO: give the states something to do! Use these methods to control the visual appearance of your
     //widget
     idleupState(): void {
-        throw new Error("Method not implemented.");
+        this._rect.fill('#D8D8F6');
     }
     idledownState(): void {
-        throw new Error("Method not implemented.");
+        this._rect.fill('#B18FCF');
     }
     pressedState(): void {
-        throw new Error("Method not implemented.");
+        this._rect.fill('#2C2C34');
     }
     hoverState(): void {
-        throw new Error("Method not implemented.");
+        this._rect.fill('#978897');
     }
     hoverPressedState(): void {
-        throw new Error("Method not implemented.");
+        this._rect.fill('#494850');
     }
     pressedoutState(): void {
         throw new Error("Method not implemented.");
