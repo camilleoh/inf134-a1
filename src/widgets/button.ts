@@ -130,13 +130,17 @@ class Button extends Widget{
         this._rect.fill('#494850');
     }
     pressedoutState(): void {
-        throw new Error("Method not implemented.");
+        this._rect.fill('#D8D8F6');
     }
     moveState(): void {
-        throw new Error("Method not implemented.");
+        this._rect.fill('#D8D8F6');
     }
     keyupState(keyEvent?: KeyboardEvent): void {
-        throw new Error("Method not implemented.");
+        if (keyEvent && keyEvent.key === "Enter") {
+            if (this._onClickCallback) {
+                this._onClickCallback(); // simulate click
+            }
+        }
     }
 }
 
