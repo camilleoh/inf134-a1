@@ -1,43 +1,64 @@
-// importing local code, code we have written
-import {Window, Widget, RoleType} from "../core/ui";
-// importing code from SVG.js library
-import {Rect} from "../core/ui";
+import { Window, Widget, RoleType } from "../core/ui";
+import { Circle } from "../core/ui";
+import { IdleUpWidgetState, PressedWidgetState } from "../core/ui";
 
-class Template extends Widget{
-    private _rect: Rect;
-    private defaultWidth: number = 80;
-    private defaultHeight: number = 30;
+class RadioButton extends Widget {
+    private circle: Circle;
+    private defaultWidth: number = 20;
+    private defaultHeight: number = 20;
+    private _isSelected: boolean = false;
 
-    constructor(parent:Window){
+    constructor(parent: Window) {
         super(parent);
         // set defaults
         this.height = this.defaultHeight;
         this.width = this.defaultWidth;
         // set Aria role
         this.role = RoleType.none;
-        //TODO:
-        // set default state!
-
+        // set initial state
+        this.setState(new IdleUpWidgetState());
         // render widget
         this.render();
     }
 
     render(): void {
         this._group = (this.parent as Window).window.group();
-        // Set the outer svg element 
         this.outerSvg = this._group;
-        // Add a transparent rect on top of text to prevent selection cursor
-        this._group.rect(this.width, this.height).opacity(0).attr('id', 0);
 
-        this.backcolor = "silver";
-        // register objects that should receive event notifications.
-        // for this widget, we want to know when the group or rect objects
-        // receive events
+        // Single circle for the radio button
+        this.circle = this._group.circle(this.width)
+            .fill('#D8D8F6') // default color
+            .stroke({ width: 2, color: '#000' })
+            .move(0, 0); // positioned at (0, 0)
+
         this.registerEvent(this.outerSvg);
+        this.update();
     }
 
-    //TODO: give the states something to do! Use these methods to control the visual appearance of your
-    //widget
+    select(): void {
+        this._isSelected = true;
+        this.update();
+    }
+
+    deselect(): void {
+        this._isSelected = false;
+        this.update();
+    }
+
+    toggle(): void {
+        this._isSelected = !this._isSelected;
+        this.update();
+    }
+
+    update(): void {
+        if (this._isSelected) {
+            this.circle.fill('#3B3BFF'); // change to selected color (blue in this case)
+        } else {
+            this.circle.fill('#D8D8F6'); // revert to default color
+        }
+    }
+
+    //TODO: Implement the state methods to manage the visual appearance in different states
     idleupState(): void {
         throw new Error("Method not implemented.");
     }
@@ -48,7 +69,7 @@ class Template extends Widget{
         throw new Error("Method not implemented.");
     }
     pressReleaseState(): void {
-        throw new Error("Method not implemented.");
+        this.toggle();
     }
     hoverState(): void {
         throw new Error("Method not implemented.");
@@ -67,4 +88,4 @@ class Template extends Widget{
     }
 }
 
-export {Template}
+export { RadioButton };

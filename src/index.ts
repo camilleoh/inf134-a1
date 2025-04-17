@@ -2,6 +2,7 @@ import {Window} from "./core/ui"
 import {Button} from "./widgets/button"
 import {Heading} from "./widgets/heading"
 import {Checkbox} from "./widgets/checkbox"
+import {RadioButton} from "./widgets/radiobutton"
 
 
 let w = new Window(window.innerHeight-10,'100%');
@@ -34,3 +35,26 @@ let checkbox = new Checkbox(w);
 checkbox.tabindex = 4;
 checkbox.move(12, 125);
 checkbox.render();
+
+let lbl3 = new Heading(w);
+lbl3.text = "Choose an option:";
+lbl3.tabindex = 5;
+lbl3.fontSize = 16;
+lbl3.move(10, 160);
+
+let rb1 = new RadioButton(w);
+rb1.move(12, 190);
+
+let rb2 = new RadioButton(w);
+rb2.move(12, 220);
+
+// Optional: manually manage group behavior
+rb1.pressReleaseState = () => {
+    rb1.select();
+    rb2.deselect();
+};
+
+rb2.pressReleaseState = () => {
+    rb2.select();
+    rb1.deselect();
+};
