@@ -1,6 +1,7 @@
 import {Window} from "./core/ui"
 import {Button} from "./widgets/button"
 import {Heading} from "./widgets/heading"
+import {Checkbox} from "./widgets/checkbox"
 
 
 let w = new Window(window.innerHeight-10,'100%');
@@ -21,3 +22,15 @@ btn.move(12, 50)
 btn.onClick(() => {
     lbl1.text = "Button was clicked!";
 });
+
+let lbl2 = new Heading(w);
+lbl2.text = "Check the checkbox:";
+lbl2.tabindex = 3;
+lbl2.fontSize = 16;
+lbl2.move(10, 100);
+
+// Checkbox
+let checkbox = new Checkbox(w);
+checkbox.tabindex = 4;
+checkbox.move(12, 125);
+checkbox.render();
