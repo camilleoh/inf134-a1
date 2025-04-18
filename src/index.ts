@@ -4,6 +4,7 @@ import {Heading} from "./widgets/heading"
 import {Checkbox} from "./widgets/checkbox"
 import {RadioButton} from "./widgets/radiobutton"
 import {ScrollBar} from "./widgets/scrollbar"
+import { ProgressBar } from "./widgets/progressbar";
 
 
 let w = new Window(window.innerHeight-10,'100%');
@@ -70,3 +71,35 @@ lbl4.move(10, 260);
 let scrollbar = new ScrollBar(w);
 scrollbar.move(12, 290); // Adjust Y as needed
 // scrollbar.render();
+
+let lbl5 = new Heading(w);
+lbl5.text = "Progress Bar:";
+lbl5.tabindex = 7;
+lbl5.fontSize = 16;
+lbl5.move(10, 500);
+
+let progress = new ProgressBar(w);
+progress.progressWidth = 250;     // Optional custom width
+progress.incrementStep = 10;      // Set how much it should increase by default
+progress.move(12, 580);           // Position it on the screen
+progress.setProgress(0);          // Set starting value
+
+let progressBtn = new Button(w);
+progressBtn.tabindex = 8;
+progressBtn.fontSize = 14;
+progressBtn.label = "Add Progress";
+progressBtn.size = { width: 160, height: 40 };
+progressBtn.move(12, 530); // Adjust Y if needed depending on layout
+
+progressBtn.onClick(() => {
+    progress.increment();
+    lbl1.text = "Progress incremented!";
+});
+
+progress.onIncrement = (val) => {
+    console.log("Progress is now:", val);
+};
+
+progress.onStateChange = (state) => {
+    console.log("ProgressBar state:", state);
+};
