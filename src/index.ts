@@ -3,6 +3,7 @@ import {Button} from "./widgets/button"
 import {Heading} from "./widgets/heading"
 import {Checkbox} from "./widgets/checkbox"
 import {RadioButton} from "./widgets/radiobutton"
+import {ScrollBar} from "./widgets/scrollbar"
 
 
 let w = new Window(window.innerHeight-10,'100%');
@@ -58,3 +59,14 @@ rb2.pressReleaseState = () => {
     rb2.select();
     rb1.deselect();
 };
+
+let lbl4 = new Heading(w);
+lbl4.text = "Scroll below:";
+lbl4.tabindex = 6;
+lbl4.fontSize = 16;
+lbl4.move(10, 260);
+
+// Scrollbar
+let scrollbar = new ScrollBar(w);
+scrollbar.move(12, 290); // Adjust Y as needed
+// scrollbar.render();
