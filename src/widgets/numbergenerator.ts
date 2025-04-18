@@ -23,7 +23,6 @@ class NumberGenerator extends Widget {
         this._group = (this.parent as Window).window.group();
         this.outerSvg = this._group;
 
-        // Create min input
         this.minInput = document.createElement("input");
         this.minInput.type = "number";
         this.minInput.placeholder = "Min";
@@ -32,7 +31,6 @@ class NumberGenerator extends Widget {
         this.minInput.style.top = "650px";
         document.body.appendChild(this.minInput);
 
-        // Create max input
         this.maxInput = document.createElement("input");
         this.maxInput.type = "number";
         this.maxInput.placeholder = "Max";
@@ -41,7 +39,6 @@ class NumberGenerator extends Widget {
         this.maxInput.style.top = "650px";
         document.body.appendChild(this.maxInput);
 
-        // Create generate button
         this.generateButton = this._group.rect(100, 30)
             .fill("#D8D8F6")
             .stroke("black")
@@ -58,7 +55,7 @@ class NumberGenerator extends Widget {
 
         this.generateButton.click(() => this.generateNumber());
         this.registerEvent(this.outerSvg);
-        this.move(20, 650); // default position
+        this.move(20, 650);
     }
 
     private generateNumber(): void {
@@ -91,44 +88,43 @@ class NumberGenerator extends Widget {
 
     pressReleaseState(): void {
         this.setState(new PressedWidgetState());
-        this.generateButton.fill("#B0B0D9");  // Change color on press
+        this.generateButton.fill("#B0B0D9");
     }
 
     idleupState(): void {
         this.setState(new IdleUpWidgetState());
-        this.generateButton.fill("#D8D8F6");  // Reset to original color
+        this.generateButton.fill("#D8D8F6");
     }
 
     idledownState(): void {
-        this.setState(new IdleUpWidgetState());  // Same as idleup, but can add different behavior if needed
+        this.setState(new IdleUpWidgetState());
         this.generateButton.fill("#D8D8F6");
     }
 
     pressedState(): void {
         this.setState(new PressedWidgetState());
-        this.generateButton.fill("#B0B0D9");  // Change color while being pressed
+        this.generateButton.fill("#B0B0D9");
     }
 
     hoverState(): void {
-        this.generateButton.fill("#A0A0FF");  // Light color change to indicate hover
+        this.generateButton.fill("#A0A0FF");
     }
 
     hoverPressedState(): void {
-        this.generateButton.fill("#8080CC");  // Darker color when hovered and pressed
+        this.generateButton.fill("#8080CC");
     }
 
     pressedoutState(): void {
         this.setState(new IdleUpWidgetState());
-        this.generateButton.fill("#D8D8F6");  // Reset button color after pressing out
+        this.generateButton.fill("#D8D8F6");
     }
 
     moveState(): void {
-        this.setState(new IdleUpWidgetState());  // Assuming moving reverts to idle
+        this.setState(new IdleUpWidgetState());
         this.generateButton.fill("#D8D8F6");
     }
 
     keyupState(): void {
-        // Handle keyup if necessary, for example, resetting a state or button color
         this.setState(new IdleUpWidgetState());
         this.generateButton.fill("#D8D8F6");
     }

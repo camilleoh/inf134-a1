@@ -27,17 +27,15 @@ class RadioButton extends Widget {
         this._group = (this.parent as Window).window.group();
         this.outerSvg = this._group;
 
-        // Radio circle
         this.circle = this._group.circle(this.width)
             .fill('#D8D8F6')
             .stroke({ width: 2, color: '#000' })
             .move(0, 0);
 
-        // Label text
         this.labelText = this._group.text(this.label || "")
             .font({ size: 14 })
             .fill('#000')
-            .move(this.width + 8, 2); // space to the right of the circle
+            .move(this.width + 8, 2);
 
         this._group.move(this.x, this.y);
         this.registerEvent(this.outerSvg);
@@ -81,38 +79,36 @@ class RadioButton extends Widget {
         this.toggle();
     }
 
-    // unused states (can remain unimplemented for now)
     idleupState(): void {
         this.circle.fill(this._isSelected ? '#B18FCF' : '#D8D8F6');
     }
     
     idledownState(): void {
-        this.circle.fill('#C7B2D9'); // Slightly darker shade for visual feedback
+        this.circle.fill('#C7B2D9');
     }
     
     pressedState(): void {
-        this.circle.fill('#A984C8'); // A bit deeper tone when actively pressing
+        this.circle.fill('#A984C8');
     }
     
     hoverState(): void {
-        this.circle.fill(this._isSelected ? '#C29EDC' : '#E3DBF2'); // Gentle hover color
+        this.circle.fill(this._isSelected ? '#C29EDC' : '#E3DBF2');
     }
     
     hoverPressedState(): void {
-        this.circle.fill('#9F6EC2'); // For hover + pressed state
+        this.circle.fill('#9F6EC2');
     }
     
     pressedoutState(): void {
-        this.circle.fill(this._isSelected ? '#B18FCF' : '#D8D8F6'); // Revert to previous
+        this.circle.fill(this._isSelected ? '#B18FCF' : '#D8D8F6');
     }
     
     moveState(): void {
-        // Optional visual if you're showing feedback during pointer movement
         this.circle.fill('#D0C0E8');
     }
     
     keyupState(): void {
-        this.toggle(); // Allow keyboard interaction
+        this.toggle();
     }
     
 }

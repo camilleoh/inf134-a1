@@ -56,13 +56,11 @@ class ScrollBar extends Widget{
         //             .fill("white")
         //             .center(this.width / 2, this.height - btnHeight / 2); 
                     
-        // Scroll Thumb
         this.thumb = this._group.rect(this.width, 30)
                     .fill("#B18FCF")
                     .stroke({color: 'black'})
                     .move(0, btnHeight);
         
-        // Button functions 
         this.upButton.click(() => {
             const currentY = parseFloat(this.thumb.y() as string); 
             const minY = 320;
@@ -95,7 +93,6 @@ class ScrollBar extends Widget{
             }
         });
 
-        // track click functionality 
         this._rect.click((event: MouseEvent) => { 
             const clickPos = event.offsetY;
             const minY = 320;
@@ -110,9 +107,6 @@ class ScrollBar extends Widget{
             } 
         });
 
-        // register objects that should receive event notifications.
-        // for this widget, we want to know when the group or rect objects
-        // receive events
         this.registerEvent(this.outerSvg);
     }
 
@@ -128,9 +122,7 @@ class ScrollBar extends Widget{
     get thumbPos(): number { 
         return parseFloat(this.thumb.y() as string);
     }
-    
-    //TODO: give the states something to do! Use these methods to control the visual appearance of your
-    //widget
+
     idleupState(): void {
         this.thumb.fill('#B18FCF');
     }
@@ -141,27 +133,27 @@ class ScrollBar extends Widget{
         this.thumb.fill('#8F5AAF');
     }
     pressReleaseState(): void {
-        this.thumb.fill('#B18FCF'); // Return to idle color
+        this.thumb.fill('#B18FCF');
     }
     
     hoverState(): void {
-        this.thumb.fill('#C9B3DC'); // Soft hover color
+        this.thumb.fill('#C9B3DC');
     }
     
     hoverPressedState(): void {
-        this.thumb.fill('#9E73C3'); // Deep hover-pressed shade
+        this.thumb.fill('#9E73C3');
     }
     
     pressedoutState(): void {
-        this.thumb.fill('#D8D8F6'); // Maybe neutral background to indicate release?
+        this.thumb.fill('#D8D8F6');
     }
     
     moveState(): void {
-        this.thumb.fill('#BCA3D4'); // Slightly muted for tracking movement
+        this.thumb.fill('#BCA3D4');
     }
     
     keyupState(): void {
-        this.thumb.fill('#B18FCF'); // Just reset to idle for now
+        this.thumb.fill('#B18FCF');
     }
 }
 

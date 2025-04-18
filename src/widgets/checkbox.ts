@@ -13,7 +13,7 @@ class Checkbox extends Widget {
     private y: number = 0;
     public onToggle?: (checked: boolean) => void;
     private _labelText: Text;
-    private _label: string = "Check me"; // default label
+    private _label: string = "Check me";
 
 
     constructor(parent: Window) {
@@ -110,15 +110,15 @@ class Checkbox extends Widget {
      }
 
     hoverPressedState(): void {
-        this.box.fill('#9E73C3'); // Deeper shade when hovering and pressed
+        this.box.fill('#9E73C3');
     }
     
     pressedoutState(): void {
-        this.box.fill('#D8D8F6'); // Back to idle-style or dimmed if mouse left while clicking
+        this.box.fill('#D8D8F6');
     }
     
     moveState(): void {
-        this.box.fill('#BCA3D4'); // Optional feedback if you want hover tracking
+        this.box.fill('#BCA3D4');
     }
     
     keyupState(): void {

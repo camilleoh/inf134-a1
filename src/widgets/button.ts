@@ -139,7 +139,7 @@ class Button extends Widget{
     keyupState(keyEvent?: KeyboardEvent): void {
         if (keyEvent && keyEvent.key === "Enter") {
             if (this._onClickCallback) {
-                this._onClickCallback(); // simulate click
+                this._onClickCallback();
             }
         }
     }

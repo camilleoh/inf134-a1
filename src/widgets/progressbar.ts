@@ -9,7 +9,6 @@ class ProgressBar extends Widget {
     private _incrementStep: number = 10;
     private _progressWidth: number = 200;
 
-    // Event handlers
     onIncrement?: (newValue: number) => void;
     onStateChange?: (state: string) => void;
 
@@ -37,12 +36,10 @@ class ProgressBar extends Widget {
         const newWidth = (clamped / 100) * this._progressWidth;
         this.fill.width(newWidth);
 
-        // Notify increment listeners
         if (this.onIncrement) {
             this.onIncrement(clamped);
         }
 
-        // Notify state change listeners
         if (this.onStateChange) {
             this.onStateChange("progress-updated");
         }
@@ -85,7 +82,6 @@ class ProgressBar extends Widget {
         }
     }
 
-    // Optional UI state methods
     idleupState(): void { this.notifyState("idleup"); }
     idledownState(): void { this.notifyState("idledown"); }
     pressedState(): void { this.notifyState("pressed"); }
