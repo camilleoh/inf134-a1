@@ -54,6 +54,7 @@ class Button extends Widget{
         this._rect = this._group.rect(this.width, this.height);
         this._rect.stroke("black");
         this._text = this._group.text(this._input);
+        this._rect.radius(5);
         // Set the outer svg element 
         this.outerSvg = this._group;
         // Add a transparent rect on top of text to 

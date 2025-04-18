@@ -5,6 +5,7 @@ import {Checkbox} from "./widgets/checkbox"
 import {RadioButton} from "./widgets/radiobutton"
 import {ScrollBar} from "./widgets/scrollbar"
 import { ProgressBar } from "./widgets/progressbar";
+import { NumberGenerator } from "./widgets/numbergenerator";
 
 
 let w = new Window(window.innerHeight-10,'100%');
@@ -124,3 +125,12 @@ progress.onIncrement = (val) => {
 progress.onStateChange = (state) => {
     console.log("ProgressBar state:", state);
 };
+
+let lbl6 = new Heading(w);
+lbl6.text = "Random Number Generator:";
+lbl6.tabindex = 7;
+lbl6.fontSize = 16;
+lbl6.move(10, 610);
+
+let numberGen = new NumberGenerator(w);
+numberGen.move(20, 650); // Set position wherever you want!
