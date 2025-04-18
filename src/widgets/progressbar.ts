@@ -52,6 +52,10 @@ class ProgressBar extends Widget {
         this.setProgress(this.progressValue + value);
     }
 
+    reduce(value: number = this._incrementStep): void {
+        this.setProgress(this.progressValue - value);
+    }
+
     move(x: number, y: number): void {
         super.move(x, y);
         this._group.move(x, y);

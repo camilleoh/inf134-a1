@@ -38,6 +38,10 @@ checkbox.tabindex = 4;
 checkbox.move(12, 125);
 checkbox.render();
 
+checkbox.onToggle = (checked) => {
+    lbl2.text = checked ? "Checkbox checked!" : "Check the checkbox:";
+};
+
 let lbl3 = new Heading(w);
 lbl3.text = "Choose an option:";
 lbl3.tabindex = 5;
@@ -45,21 +49,26 @@ lbl3.fontSize = 16;
 lbl3.move(10, 160);
 
 let rb1 = new RadioButton(w);
+rb1.label = "Option A";
 rb1.move(12, 190);
 
 let rb2 = new RadioButton(w);
+rb2.label = "Option B";
 rb2.move(12, 220);
 
-// Optional: manually manage group behavior
-rb1.pressReleaseState = () => {
+// Manual grouping logic:
+rb1.onSelect = (label) => {
     rb1.select();
     rb2.deselect();
+    lbl3.text = `${label} selected`;
 };
 
-rb2.pressReleaseState = () => {
+rb2.onSelect = (label) => {
     rb2.select();
     rb1.deselect();
+    lbl3.text = `${label} selected`;
 };
+
 
 let lbl4 = new Heading(w);
 lbl4.text = "Scroll below:";
@@ -87,13 +96,25 @@ progress.setProgress(0);          // Set starting value
 let progressBtn = new Button(w);
 progressBtn.tabindex = 8;
 progressBtn.fontSize = 14;
-progressBtn.label = "Add Progress";
+progressBtn.label = "Add";
 progressBtn.size = { width: 160, height: 40 };
-progressBtn.move(12, 530); // Adjust Y if needed depending on layout
+progressBtn.move(200, 530); // Adjust Y if needed depending on layout
+
+let delProgressBtn = new Button(w);
+delProgressBtn.tabindex = 8;
+delProgressBtn.fontSize = 14;
+delProgressBtn.label = "Delete";
+delProgressBtn.size = { width: 200, height: 40 };
+delProgressBtn.move(12, 530); // Adjust Y if needed depending on layout
 
 progressBtn.onClick(() => {
     progress.increment();
-    lbl1.text = "Progress incremented!";
+    lbl5.text = "Progress incremented!";
+});
+
+delProgressBtn.onClick(() => {
+    progress.reduce();
+    lbl5.text = "Progress reduced!";
 });
 
 progress.onIncrement = (val) => {

@@ -1,23 +1,24 @@
-import { Window, Widget, RoleType } from "../core/ui";
-import { Circle } from "../core/ui";
-import { IdleUpWidgetState, PressedWidgetState } from "../core/ui";
+import { Window, Widget, RoleType, Circle, Text } from "../core/ui";
+import { IdleUpWidgetState } from "../core/ui";
 
 class RadioButton extends Widget {
     private circle: Circle;
+    private labelText: Text;
     private defaultWidth: number = 20;
     private defaultHeight: number = 20;
     private _isSelected: boolean = false;
+    private x: number = 0;
+    private y: number = 0;
+
+    public label: string = "";
+    public onSelect?: (label: string) => void;
 
     constructor(parent: Window) {
         super(parent);
-        // set defaults
         this.height = this.defaultHeight;
         this.width = this.defaultWidth;
-        // set Aria role
         this.role = RoleType.none;
-        // set initial state
         this.setState(new IdleUpWidgetState());
-        // render widget
         this.render();
     }
 
@@ -25,14 +26,29 @@ class RadioButton extends Widget {
         this._group = (this.parent as Window).window.group();
         this.outerSvg = this._group;
 
-        // Single circle for the radio button
+        // Radio circle
         this.circle = this._group.circle(this.width)
-            .fill('#D8D8F6') // default color
+            .fill('#D8D8F6')
             .stroke({ width: 2, color: '#000' })
-            .move(0, 0); // positioned at (0, 0)
+            .move(0, 0);
 
+        // Label text
+        this.labelText = this._group.text(this.label || "")
+            .font({ size: 14 })
+            .fill('#000')
+            .move(this.width + 8, 2); // space to the right of the circle
+
+        this._group.move(this.x, this.y);
         this.registerEvent(this.outerSvg);
         this.update();
+    }
+
+    move(x: number, y: number): void {
+        this.x = x;
+        this.y = y;
+        if (this._group) {
+            this._group.move(x, y);
+        }
     }
 
     select(): void {
@@ -48,44 +64,31 @@ class RadioButton extends Widget {
     toggle(): void {
         this._isSelected = !this._isSelected;
         this.update();
-    }
-
-    update(): void {
-        if (this._isSelected) {
-            this.circle.fill('#3B3BFF'); // change to selected color (blue in this case)
-        } else {
-            this.circle.fill('#D8D8F6'); // revert to default color
+        if (this._isSelected && this.onSelect) {
+            this.onSelect(this.label);
         }
     }
 
-    //TODO: Implement the state methods to manage the visual appearance in different states
-    idleupState(): void {
-        throw new Error("Method not implemented.");
+    update(): void {
+        this.circle.fill(this._isSelected ? '#3B3BFF' : '#D8D8F6');
+        if (this.labelText) {
+            this.labelText.text(this.label || "");
+        }
     }
-    idledownState(): void {
-        throw new Error("Method not implemented.");
-    }
-    pressedState(): void {
-        throw new Error("Method not implemented.");
-    }
+
     pressReleaseState(): void {
         this.toggle();
     }
-    hoverState(): void {
-        throw new Error("Method not implemented.");
-    }
-    hoverPressedState(): void {
-        throw new Error("Method not implemented.");
-    }
-    pressedoutState(): void {
-        throw new Error("Method not implemented.");
-    }
-    moveState(): void {
-        throw new Error("Method not implemented.");
-    }
-    keyupState(): void {
-        throw new Error("Method not implemented.");
-    }
+
+    // unused states (can remain unimplemented for now)
+    idleupState(): void { throw new Error("Method not implemented."); }
+    idledownState(): void { throw new Error("Method not implemented."); }
+    pressedState(): void { throw new Error("Method not implemented."); }
+    hoverState(): void { throw new Error("Method not implemented."); }
+    hoverPressedState(): void { throw new Error("Method not implemented."); }
+    pressedoutState(): void { throw new Error("Method not implemented."); }
+    moveState(): void { throw new Error("Method not implemented."); }
+    keyupState(): void { throw new Error("Method not implemented."); }
 }
 
 export { RadioButton };

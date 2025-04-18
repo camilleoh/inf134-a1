@@ -11,7 +11,7 @@ class Checkbox extends Widget {
     private checkmark: Text;
     private x: number = 0;
     private y: number = 0;
-
+    public onToggle?: (checked: boolean) => void;
 
     constructor(parent: Window) {
         super(parent);
@@ -50,6 +50,10 @@ class Checkbox extends Widget {
     pressReleaseState(): void {
         this.toggle();
         this.update();
+
+        if (this.onToggle) {
+            this.onToggle(this.isChecked);
+        }
     }
 
     toggle(): void {
