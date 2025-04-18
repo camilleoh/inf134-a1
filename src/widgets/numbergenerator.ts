@@ -90,32 +90,48 @@ class NumberGenerator extends Widget {
     }
 
     pressReleaseState(): void {
-        throw new Error("Method not implemented.");
+        this.setState(new PressedWidgetState());
+        this.generateButton.fill("#B0B0D9");  // Change color on press
     }
+
     idleupState(): void {
-        throw new Error("Method not implemented.");
-     }
+        this.setState(new IdleUpWidgetState());
+        this.generateButton.fill("#D8D8F6");  // Reset to original color
+    }
+
     idledownState(): void {
-        throw new Error("Method not implemented.");
-     }
+        this.setState(new IdleUpWidgetState());  // Same as idleup, but can add different behavior if needed
+        this.generateButton.fill("#D8D8F6");
+    }
+
     pressedState(): void {
-        throw new Error("Method not implemented.");
-     }
+        this.setState(new PressedWidgetState());
+        this.generateButton.fill("#B0B0D9");  // Change color while being pressed
+    }
+
     hoverState(): void {
-        throw new Error("Method not implemented.");
-     }
+        this.generateButton.fill("#A0A0FF");  // Light color change to indicate hover
+    }
+
     hoverPressedState(): void {
-        throw new Error("Method not implemented.");
-     }
+        this.generateButton.fill("#8080CC");  // Darker color when hovered and pressed
+    }
+
     pressedoutState(): void {
-        throw new Error("Method not implemented.");
-     }
+        this.setState(new IdleUpWidgetState());
+        this.generateButton.fill("#D8D8F6");  // Reset button color after pressing out
+    }
+
     moveState(): void {
-        throw new Error("Method not implemented.");
-     }
+        this.setState(new IdleUpWidgetState());  // Assuming moving reverts to idle
+        this.generateButton.fill("#D8D8F6");
+    }
+
     keyupState(): void {
-        throw new Error("Method not implemented.");
-     }
+        // Handle keyup if necessary, for example, resetting a state or button color
+        this.setState(new IdleUpWidgetState());
+        this.generateButton.fill("#D8D8F6");
+    }
 }
 
 export { NumberGenerator };

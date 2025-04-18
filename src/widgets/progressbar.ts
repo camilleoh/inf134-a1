@@ -27,7 +27,7 @@ class ProgressBar extends Widget {
         this._group = (this.parent as Window).window.group();
         this.outerSvg = this._group;
 
-        this.track = this._group.rect(this._progressWidth, this.height).fill('#e0e0e0').radius(10);
+        this.track = this._group.rect(this._progressWidth, this.height).fill('#D8D8F6').radius(10);
         this.fill = this._group.rect(0, this.height).fill('#4caf50').radius(10).move(0, 0);
     }
 

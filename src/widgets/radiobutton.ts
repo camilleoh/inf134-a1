@@ -1,5 +1,5 @@
 import { Window, Widget, RoleType, Circle, Text } from "../core/ui";
-import { IdleUpWidgetState } from "../core/ui";
+import { IdleUpWidgetState, PressedWidgetState } from "../core/ui";
 
 class RadioButton extends Widget {
     private circle: Circle;
@@ -20,6 +20,7 @@ class RadioButton extends Widget {
         this.role = RoleType.none;
         this.setState(new IdleUpWidgetState());
         this.render();
+        this.deselect();
     }
 
     render(): void {
@@ -70,7 +71,7 @@ class RadioButton extends Widget {
     }
 
     update(): void {
-        this.circle.fill(this._isSelected ? '#3B3BFF' : '#D8D8F6');
+        this.circle.fill(this._isSelected ? '#B18FCF' : '#D8D8F6');
         if (this.labelText) {
             this.labelText.text(this.label || "");
         }
@@ -81,14 +82,39 @@ class RadioButton extends Widget {
     }
 
     // unused states (can remain unimplemented for now)
-    idleupState(): void { throw new Error("Method not implemented."); }
-    idledownState(): void { throw new Error("Method not implemented."); }
-    pressedState(): void { throw new Error("Method not implemented."); }
-    hoverState(): void { throw new Error("Method not implemented."); }
-    hoverPressedState(): void { throw new Error("Method not implemented."); }
-    pressedoutState(): void { throw new Error("Method not implemented."); }
-    moveState(): void { throw new Error("Method not implemented."); }
-    keyupState(): void { throw new Error("Method not implemented."); }
+    idleupState(): void {
+        this.circle.fill(this._isSelected ? '#B18FCF' : '#D8D8F6');
+    }
+    
+    idledownState(): void {
+        this.circle.fill('#C7B2D9'); // Slightly darker shade for visual feedback
+    }
+    
+    pressedState(): void {
+        this.circle.fill('#A984C8'); // A bit deeper tone when actively pressing
+    }
+    
+    hoverState(): void {
+        this.circle.fill(this._isSelected ? '#C29EDC' : '#E3DBF2'); // Gentle hover color
+    }
+    
+    hoverPressedState(): void {
+        this.circle.fill('#9F6EC2'); // For hover + pressed state
+    }
+    
+    pressedoutState(): void {
+        this.circle.fill(this._isSelected ? '#B18FCF' : '#D8D8F6'); // Revert to previous
+    }
+    
+    moveState(): void {
+        // Optional visual if you're showing feedback during pointer movement
+        this.circle.fill('#D0C0E8');
+    }
+    
+    keyupState(): void {
+        this.toggle(); // Allow keyboard interaction
+    }
+    
 }
 
 export { RadioButton };

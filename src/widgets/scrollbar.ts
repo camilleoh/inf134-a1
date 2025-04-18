@@ -36,29 +36,29 @@ class ScrollBar extends Widget{
         this.outerSvg = this._group;
         
         // scroll track appearance 
-        this._rect = this._group.rect(this.width, this.height).fill('#D9D9D9');
+        this._rect = this._group.rect(this.width, this.height).fill('#D8D8F6');
 
         // up button 
         const btnHeight = 20; 
         this.upButton = this._group.rect(this.width, btnHeight)
-                                .fill('green')
+                                .fill('#978897')
                                 .stroke({color: 'black'})
         this.downButton = this._group.rect(this.width, btnHeight)
-                                .fill('green')
+                                .fill('#978897')
                                 .stroke({color: 'black'})
                                 .move(0, this.height - btnHeight)
 
-        this._group.polygon("15,5 25,15 5,15")
-                    .fill("white")
-                    .center(this.width / 2, btnHeight / 2); 
+        // this._group.polygon("15,5 25,15 5,15")
+        //             .fill("white")
+        //             .center(this.width / 2, btnHeight / 2); 
 
-        this._group.polygon("5,5 25,5 15,15")
-                    .fill("white")
-                    .center(this.width / 2, this.height - btnHeight / 2); 
+        // this._group.polygon("5,5 25,5 15,15")
+        //             .fill("white")
+        //             .center(this.width / 2, this.height - btnHeight / 2); 
                     
         // Scroll Thumb
         this.thumb = this._group.rect(this.width, 30)
-                    .fill("#A7C7E7")
+                    .fill("#B18FCF")
                     .stroke({color: 'black'})
                     .move(0, btnHeight);
         
@@ -116,8 +116,6 @@ class ScrollBar extends Widget{
         this.registerEvent(this.outerSvg);
     }
 
-    
-
     get scrollBarHeight(): number { 
         return this.height;
     }
@@ -134,31 +132,36 @@ class ScrollBar extends Widget{
     //TODO: give the states something to do! Use these methods to control the visual appearance of your
     //widget
     idleupState(): void {
-        throw new Error("Method not implemented.");
+        this.thumb.fill('#B18FCF');
     }
     idledownState(): void {
-        throw new Error("Method not implemented.");
+        this.thumb.fill('#A077BD');
     }
     pressedState(): void {
-        throw new Error("Method not implemented.");
+        this.thumb.fill('#8F5AAF');
     }
     pressReleaseState(): void {
-        throw new Error("Method not implemented.");
+        this.thumb.fill('#B18FCF'); // Return to idle color
     }
+    
     hoverState(): void {
-        throw new Error("Method not implemented.");
+        this.thumb.fill('#C9B3DC'); // Soft hover color
     }
+    
     hoverPressedState(): void {
-        throw new Error("Method not implemented.");
+        this.thumb.fill('#9E73C3'); // Deep hover-pressed shade
     }
+    
     pressedoutState(): void {
-        throw new Error("Method not implemented.");
+        this.thumb.fill('#D8D8F6'); // Maybe neutral background to indicate release?
     }
+    
     moveState(): void {
-        throw new Error("Method not implemented.");
+        this.thumb.fill('#BCA3D4'); // Slightly muted for tracking movement
     }
+    
     keyupState(): void {
-        throw new Error("Method not implemented.");
+        this.thumb.fill('#B18FCF'); // Just reset to idle for now
     }
 }
 

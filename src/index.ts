@@ -25,6 +25,7 @@ btn.move(12, 50)
 
 btn.onClick(() => {
     lbl1.text = "Button was clicked!";
+    console.log("Button was clicked!");
 });
 
 let lbl2 = new Heading(w);
@@ -37,10 +38,10 @@ lbl2.move(10, 100);
 let checkbox = new Checkbox(w);
 checkbox.tabindex = 4;
 checkbox.move(12, 125);
-checkbox.render();
 
 checkbox.onToggle = (checked) => {
     lbl2.text = checked ? "Checkbox checked!" : "Check the checkbox:";
+    console.log(`Checkbox toggled. Checked: ${checked}`);
 };
 
 let lbl3 = new Heading(w);
@@ -62,12 +63,14 @@ rb1.onSelect = (label) => {
     rb1.select();
     rb2.deselect();
     lbl3.text = `${label} selected`;
+    console.log(`${label} selected`);
 };
 
 rb2.onSelect = (label) => {
     rb2.select();
     rb1.deselect();
     lbl3.text = `${label} selected`;
+    console.log(`${label} selected`);
 };
 
 
@@ -80,7 +83,6 @@ lbl4.move(10, 260);
 // Scrollbar
 let scrollbar = new ScrollBar(w);
 scrollbar.move(12, 290); // Adjust Y as needed
-// scrollbar.render();
 
 let lbl5 = new Heading(w);
 lbl5.text = "Progress Bar:";

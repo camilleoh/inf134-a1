@@ -12,14 +12,17 @@ class Checkbox extends Widget {
     private x: number = 0;
     private y: number = 0;
     public onToggle?: (checked: boolean) => void;
+    private _labelText: Text;
+    private _label: string = "Check me"; // default label
+
 
     constructor(parent: Window) {
         super(parent);
         this.width = 20;
         this.height = 20;
         this.role = RoleType.none;
-        this.render();
         this.setState(new IdleUpWidgetState());
+        this.render();
     }
 
     render(): void {
@@ -27,7 +30,7 @@ class Checkbox extends Widget {
         this.outerSvg = this._group;
 
         this.box = this._group.rect(this.width, this.height)
-            .fill(this.backcolor || '#fff')
+            .fill(this.backcolor || '#D8D8F6')
             .stroke({ width: 2, color: '#000' });
 
         this.checkmark = this._group.text('✓')
@@ -42,9 +45,16 @@ class Checkbox extends Widget {
         this.checkmark.move(offsetX, offsetY);
 
         this.registerEvent(this._group);
-        this.update();
 
         this._group.move(this.x, this.y);
+
+        this._labelText = this._group.text(this._label);
+        this._labelText
+            .font({ size: 16 })
+            .fill('#000')
+            .x(this.width + 10)  // position label to the right of the box
+            .y((this.height - this._labelText.bbox().height) / 2); // vertical centering  
+        this.update();  
     }
 
     pressReleaseState(): void {
@@ -54,6 +64,17 @@ class Checkbox extends Widget {
         if (this.onToggle) {
             this.onToggle(this.isChecked);
         }
+    }
+
+    set label(value: string) {
+        this._label = value;
+        if (this._labelText) {
+            this._labelText.text(this._label);
+        }
+    }
+    
+    get label(): string {
+        return this._label;
     }
 
     toggle(): void {
@@ -76,29 +97,39 @@ class Checkbox extends Widget {
 
 
     idleupState(): void {
-        throw new Error("Method not implemented.");
+        this.box.fill('#D8D8F6');
      }
     idledownState(): void {
-        throw new Error("Method not implemented.");
+        this.box.fill('#B18FCF');
      }
     pressedState(): void {
-        throw new Error("Method not implemented.");
+        this.box.fill('#B18FCF');
      }
     hoverState(): void {
-        throw new Error("Method not implemented.");
+        this.box.fill('#B18FCF');
      }
+
     hoverPressedState(): void {
-        throw new Error("Method not implemented.");
-     }
+        this.box.fill('#9E73C3'); // Deeper shade when hovering and pressed
+    }
+    
     pressedoutState(): void {
-        throw new Error("Method not implemented.");
-     }
+        this.box.fill('#D8D8F6'); // Back to idle-style or dimmed if mouse left while clicking
+    }
+    
     moveState(): void {
-        throw new Error("Method not implemented.");
-     }
+        this.box.fill('#BCA3D4'); // Optional feedback if you want hover tracking
+    }
+    
     keyupState(): void {
-        throw new Error("Method not implemented.");
-     }
+        this.toggle();
+        this.update();
+    
+        if (this.onToggle) {
+            this.onToggle(this.isChecked);
+        }
+    }
+    
 }
 
 export {Checkbox}
